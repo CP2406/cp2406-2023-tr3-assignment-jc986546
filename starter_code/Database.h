@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <random>
 #include "Employee.h"
 
 namespace Records {
@@ -19,6 +20,10 @@ namespace Records {
 		void displayAll() const;
 		void displayCurrent() const;
 		void displayFormer() const;
+		/**
+		 * @brief Generate a new database with 8000 employees
+		*/
+		void generateNewDatabase();
 
 	private:
 		std::vector<Employee> mEmployees;
