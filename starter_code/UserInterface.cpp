@@ -225,3 +225,70 @@ void loadDatabase(Database& db) {
     // Load the database from the file
     db.loadDatabase(fileName);
 }
+/**
+ * @brief edit an employee. Ask user for the employee number.
+ * @param db
+*/
+void editEmployee(Database& db) {
+
+    int employeeNumber;
+    cout << "Employee number: ";
+    cin >> employeeNumber;
+
+    try {
+        Employee &emp = db.getEmployee(employeeNumber);
+        bool done = false;
+        while (!done)
+        {
+            emp.display();
+            cout << "1) Change address" << endl;
+            cout << "2) Change salary" << endl;
+            cout << "3) Change hire/fire status" << endl;
+            cout << "0) Cancel" << endl;
+            cout << endl;
+            cout << "---> ";
+
+            int selection;
+            cin >> selection;
+
+            switch (selection) {
+                case 0:
+                    cout << "Edit cancelled." << endl;
+                    done = true;
+                    break;
+                case 1: {
+                    string address;
+                    cout << "New address? ";
+                    cin >> address;
+                    emp.setAddress(address);
+                    cout << "Address changed." << endl;
+                    break;
+                }
+                case 2: {
+                    int salary;
+                    cout << "New salary? ";
+                    cin >> salary;
+                    emp.setSalary(salary);
+                    cout << "Salary changed." << endl;
+                    break;
+                }
+                case 3: {
+                    bool hired;
+                    cout << "Hired? (y/n): ";
+                    char hiredChar;
+                    cin >> hiredChar;
+                    hired = hiredChar == 'y';
+                    if (hired) {
+                        emp.hire();
+                    } else {
+                        emp.fire();
+                    }
+                    cout << "Hire/fire status changed." << endl;
+                    break;
+                }
+            }
+        }
+    } catch (const std::logic_error& exception) {
+        cerr << "Unable to edit employee: " << exception.what() << endl;
+    }
+}
