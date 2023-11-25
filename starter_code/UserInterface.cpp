@@ -14,41 +14,83 @@ void doDemote(Database& db);
 
 int main()
 {
+
 	Database employeeDB;
+    int option;
+    do {
+        // When running the program, first log in
+        option = loginMenu(employeeDB);
+        // If the user is a manager, display the manager menu
+        if (option == 1) {
+            bool done = false;
+            while (!done) {
+                int selection = displayMenu();
+                switch (selection) {
+                    case 0:
+                        done = true;
+                        break;
+                    case 1:
+                        doHire(employeeDB);
+                        break;
+                    case 2:
+                        doFire(employeeDB);
+                        break;
+                    case 3:
+                        doPromote(employeeDB);
+                        break;
+                    case 4:
+                        employeeDB.displayAll();
+                        break;
+                    case 5:
+                        employeeDB.displayCurrent();
+                        break;
+                    case 6:
+                        employeeDB.displayFormer();
+                        break;
+                    case 7:
+                        employeeDB.generateNewDatabase();
+                        break;
+                    case 8:
+                        saveDatabase(employeeDB);
+                        break;
+                    case 9:
+                        loadDatabase(employeeDB);
+                        break;
+                    case 10:
+                        editEmployee(employeeDB);
+                        break;
+                    case 11:
+                        searchEmployee(employeeDB);
+                        break;
+                    default:
+                        cerr << "Unknown command." << endl;
+                        break;
+                }
+            }
+            
+        } else if (option == 2) {  // If the user is an employee, display the employee menu
+            bool done = false;
+            Employee& emp = employeeDB.getEmployee(stoi(employeeNumber));
+            while (!done) {
+                int selection = displayEmployeeMenu();
 
-	bool done = false;
-	while (!done) {
-		int selection = displayMenu();
-		switch (selection) {
-		case 0:
-			done = true;
-			break;
-		case 1:
-			doHire(employeeDB);
-			break;
-		case 2:
-			doFire(employeeDB);
-			break;
-		case 3:
-			doPromote(employeeDB);
-			break;
-		case 4:
-			employeeDB.displayAll();
-			break;
-		case 5:
-			employeeDB.displayCurrent();
-			break;
-		case 6:
-			employeeDB.displayFormer();
-			break;
-		default:
-			cerr << "Unknown command." << endl;
-			break;
-		}
-	}
-
+                switch (selection) {
+                    case 0:
+                        done = true;
+                        break;
+                    case 1:
+                        emp.display();
+                        break;
+                    default:
+                        cerr << "Unknown command." << endl;
+                        break;
+                }
+            }
+        }
+    } while (option != 0);
 	return 0;
 }
+
 
 int displayMenu()
 {
@@ -69,6 +111,11 @@ int displayMenu()
     cout << "4) List all employees" << endl;
     cout << "5) List all current employees" << endl;
     cout << "6) List all former employees" << endl;
+    cout << "7) Generate new database" << endl;
+    cout << "8) Save database to file" << endl;
+    cout << "9) Load database from file" << endl;
+    cout << "10) Edit employee" << endl;
+    cout << "11) Search employee" << endl;
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
@@ -77,6 +124,7 @@ int displayMenu()
     
 	return selection;
 }
+
 
 void doHire(Database& db)
 {
