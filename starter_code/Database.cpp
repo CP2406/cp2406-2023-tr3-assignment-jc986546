@@ -134,3 +134,42 @@ namespace Records {
             throw logic_error("Unable to open file.");
         }
     }
+/**
+     * @brief Load the database from a file
+     * @param fileName The name of the file to load from
+    */
+    void Database::loadDatabase(const std::string& fileName) {
+        ifstream databaseFile(fileName);
+        if (databaseFile.is_open()) {
+            string line;
+            while (getline(databaseFile, line)) {
+                istringstream iss(line);
+                int employeeNumber;
+                string firstName;
+                string middleName;
+                string lastName;
+                string address;
+                int salary;
+                bool hired;
+                // Read the employee data from the file
+                if (!(iss >> employeeNumber >> firstName >> middleName >> lastName >> address >> salary >> hired)) {
+                    throw logic_error("Unable to read file.");
+                }
+                Employee& employee = addEmployee(firstName, lastName);
+                employee.setMiddleName(middleName);
+                employee.setAddress(address);
+                employee.setSalary(salary);
+                employee.setEmployeeNumber(employeeNumber);
+
+                // Hire or fire the employee
+                if (hired) {
+                    employee.hire();
+                } else {
+                    employee.fire();
+                }
+            }
+            databaseFile.close();
+        } else {
+            throw logic_error("Unable to open file.");
+        }
+    }
