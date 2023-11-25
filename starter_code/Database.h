@@ -24,6 +24,18 @@ namespace Records {
 		 * @brief Generate a new database with 8000 employees
 		*/
 		void generateNewDatabase();
+		/**
+		 * @brief Save the database to a file
+		 * @param fileName The name of the file to save to
+		*/
+		void saveDatabase(const std::string& fileName = "database.txt") const;
+
+		/**
+		 * @brief Load the database from a file
+		 * @param fileName The name of the file to load from
+		*/
+        	void loadDatabase(const std::string& fileName = "database.txt");
+
 
 	private:
 		std::vector<Employee> mEmployees;
