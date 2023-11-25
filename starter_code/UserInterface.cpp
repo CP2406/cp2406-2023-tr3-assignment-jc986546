@@ -202,3 +202,26 @@ void saveDatabase(Database& db) {
     // Save the database to the file
     db.saveDatabase(fileName);
 }
+/**
+ * @brief load the database from a text file. Ask user for the file name.
+ * @param db
+*/
+void loadDatabase(Database& db) {
+    cout << "Loading database..." << endl;
+
+    cout << "Enter file name: ";
+    string fileName;
+    cin >> fileName;
+
+    ifstream file(fileName);
+
+    //    If the file does not exist, cancel the load
+    if (!file.good()) {
+        cout << "File does not exist." << endl;
+        return;
+    }
+    file.close();
+
+    // Load the database from the file
+    db.loadDatabase(fileName);
+}
