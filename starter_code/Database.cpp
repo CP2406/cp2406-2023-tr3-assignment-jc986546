@@ -112,3 +112,25 @@ namespace Records {
 
         cout << "Done!" << endl;
     }
+/**
+     * @brief Save the database to a file
+     * @param fileName The name of the file to save to
+    */
+    void Database::saveDatabase(const std::string& fileName) const {
+        ofstream databaseFile(fileName);
+        if (databaseFile.is_open()) {
+            // Write the employee data to the file
+            for (const auto& employee : mEmployees) {
+                databaseFile << employee.getEmployeeNumber();
+                databaseFile << " " << employee.getFirstName();
+                databaseFile << " " << employee.getMiddleName();
+                databaseFile << " " << employee.getLastName();
+                databaseFile << " " << employee.getAddress();
+                databaseFile << " " << employee.getSalary();
+                databaseFile << " " << employee.isHired() << endl;
+            }
+            databaseFile.close();
+        } else {
+            throw logic_error("Unable to open file.");
+        }
+    }
