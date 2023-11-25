@@ -30,7 +30,13 @@ namespace Records {
 		void setSalary(int newSalary);
 		int getSalary() const;
 
-		bool isHired() const;
+	const std::string &getAddress() const;
+        void setAddress(const std::string &mAddress);
+
+        const std::string &getMiddleName() const;
+        void setMiddleName(const std::string &mMiddleName);
+
+        bool isHired() const;
 
 	private:
 		std::string mFirstName;
@@ -38,6 +44,7 @@ namespace Records {
 		int mEmployeeNumber = -1;
 		int mSalary = kDefaultStartingSalary;
 		bool mHired = false;
+        std::string mAddress;
+        std::string mMiddleName;
 	};
 }
-
