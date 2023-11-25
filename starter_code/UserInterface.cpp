@@ -172,3 +172,33 @@ void doPromote(Database& db)
         cerr << "Unable to promote employee: " << exception.what() << endl;
     }
 }
+/**
+ * @brief save the database to a text file. Ask user for the file name.
+ * @param db
+*/
+void saveDatabase(Database& db) {
+    cout << "Saving database..." << endl;
+
+    cout << "Enter file name: ";
+    string fileName;
+    cin >> fileName;
+
+    ifstream file(fileName);
+
+    // If the file already exists, ask the user if they want to overwrite it
+    if (file.good()) {
+        cout << "File already exists. Overwrite? (y/n): ";
+        char overwrite;
+        cin >> overwrite;
+
+        // If the user does not want to overwrite the file, cancel the save
+        if (overwrite == 'n') {
+            cout << "Save cancelled." << endl;
+            return;
+        }
+    }
+    file.close();
+
+    // Save the database to the file
+    db.saveDatabase(fileName);
+}
