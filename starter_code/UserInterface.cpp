@@ -292,3 +292,66 @@ void editEmployee(Database& db) {
         cerr << "Unable to edit employee: " << exception.what() << endl;
     }
 }
+
+void searchEmployee(Database& db){
+	    cout << "Search by: " << endl;
+    cout << "1) First name" << endl;
+    cout << "2) Middle name" << endl;
+    cout << "3) Last name" << endl;
+    cout << "4) Address" << endl;
+    cout << "0) Cancel" << endl;
+    cout << endl;
+    cout << "---> ";
+	
+    int selection;
+    cin >> selection;
+    switch (selection) {
+        case 0:
+            cout << "Search cancelled." << endl;
+            break;
+        case 1: {
+            string firstName;
+            cout << "First name: ";
+            cin >> firstName;
+            vector<Employee> employees = db.searchByFirstName(firstName);
+            cout << "Found " << employees.size() << " employees." << endl;
+            for (const auto& employee : employees) {
+                employee.display();
+            }
+            break;
+        }
+        case 2: {
+            string middleName;
+            cout << "Middle name: ";
+            cin >> middleName;
+            vector<Employee> employees = db.searchByMiddleName(middleName);
+            cout << "Found " << employees.size() << " employees." << endl;
+            for (const auto& employee : employees) {
+                employee.display();
+            }
+            break;
+        }
+        case 3: {
+            string lastName;
+            cout << "Last name: ";
+            cin >> lastName;
+            vector<Employee> employees = db.searchByLastName(lastName);
+            cout << "Found " << employees.size() << " employees." << endl;
+            for (const auto& employee : employees) {
+                employee.display();
+            }
+            break;
+        }
+        case 4: {
+            string address;
+            cout << "address: ";
+            cin >> address;
+            vector<Employee> employees = db.searchByAddress(address);
+            cout << "Found " << employees.size() << " employees." << endl;
+            for (const auto& employee : employees) {
+                employee.display();
+            }
+            break;
+        }
+    }
+}
