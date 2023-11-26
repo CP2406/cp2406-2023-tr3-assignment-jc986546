@@ -67,7 +67,6 @@ namespace Records {
 		}
 	}
 
-}
    /**
      * @brief Generate a new database with 8000 employees
     */
@@ -112,7 +111,7 @@ namespace Records {
 
         cout << "Done!" << endl;
     }
-/**
+    /**
      * @brief Save the database to a file
      * @param fileName The name of the file to save to
     */
@@ -134,7 +133,7 @@ namespace Records {
             throw logic_error("Unable to open file.");
         }
     }
-/**
+    /**
      * @brief Load the database from a file
      * @param fileName The name of the file to load from
     */
@@ -173,3 +172,65 @@ namespace Records {
             throw logic_error("Unable to open file.");
         }
     }
+    /**
+     * @brief Load the database from a file
+     * @param fileName The name of the file to load from
+    */
+    vector<Employee> Database::searchByFirstName(const string& basicString) {
+        vector<Employee> result;
+        for (const auto &item: mEmployees) {
+            if (item.getFirstName().find(basicString) != string::npos) {
+                result.push_back(item);
+            }
+        }
+        return result;
+
+    }
+
+    /**
+     * @brief Fuzzy search for employees by MiddleName
+     * @param basicString The name to search for
+     * @return A vector of employees that match the search
+    */
+    vector<Employee> Database::searchByMiddleName(const std::string& basicString) {
+        vector<Employee> result;
+        for (const auto &item: mEmployees) {
+            if (item.getMiddleName().find(basicString) != string::npos) {
+                result.push_back(item);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @brief Fuzzy search for employees by LastName
+     * @param basicString The name to search for
+     * @return A vector of employees that match the search
+    */
+    vector<Employee> Database::searchByLastName(const std::string& basicString) {
+        vector<Employee> result;
+        for (const auto &item: mEmployees) {
+            if (item.getLastName().find(basicString) != string::npos) {
+                result.push_back(item);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @brief Fuzzy search for employees by Address
+     * @param basicString The name to search for
+     * @return A vector of employees that match the search
+    */
+    std::vector<Employee> Database::searchByAddress(const std::string& basicString) {
+        vector<Employee> result;
+        for (const auto &item: mEmployees) {
+            if (item.getAddress().find(basicString) != string::npos) {
+                result.push_back(item);
+            }
+        }
+        return result;
+    }
+
+    
+}
