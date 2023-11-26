@@ -36,6 +36,33 @@ namespace Records {
 		*/
         	void loadDatabase(const std::string& fileName = "database.txt");
 
+		/**
+		 * @brief Fuzzy search for employees by FirstName
+		 * @param basicString The name to search for
+		 * @return A vector of employees that match the search
+		*/
+        std::vector<Employee> searchByFirstName(const std::string& basicString);
+
+		/**
+		 * @brief Fuzzy search for employees by MiddleName
+		 * @param basicString The name to search for
+		 * @return A vector of employees that match the search
+		*/
+        std::vector<Employee> searchByMiddleName(const std::string& basicString);
+
+		/**
+		 * @brief Fuzzy search for employees by LastName
+		 * @param basicString The name to search for
+		 * @return A vector of employees that match the search
+		*/
+        std::vector<Employee> searchByLastName(const std::string& basicString);
+
+		/**
+		 * @brief Fuzzy search for employees by Address
+		 * @param basicString The name to search for
+		 * @return A vector of employees that match the search
+		*/
+		std::vector<Employee> searchByAddress(const std::string& basicString);
 
 	private:
 		std::vector<Employee> mEmployees;
