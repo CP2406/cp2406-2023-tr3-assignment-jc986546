@@ -12,9 +12,11 @@ using namespace Records;
 string employeeNumber;
 
 int displayMenu();
+
 /**
  * @brief displayEmployeeMenu
 */
+int displayEmployeeMenu();
 void doHire(Database& db);
 void doFire(Database& db);
 void doPromote(Database& db);
@@ -29,7 +31,6 @@ void saveDatabase(Database& db);
 /**
  * @brief edit an employee. Ask user for the employee number.
  * @param db
-
 */
 void editEmployee(Database& db);
 
@@ -44,6 +45,15 @@ void searchEmployee(Database& db);
  * @param db
 */
 void loadDatabase(Database& db);
+
+/**
+ * @brief Manager or Employee login menu
+*/
+int loginMenu(Database& db);
+/**
+ * @brief Manager or Employee login
+*/
+bool login(Database& db, bool isManager);
 
 int main()
 {
@@ -124,6 +134,84 @@ int main()
 	return 0;
 }
 
+bool login(Database& db, bool isManager) {
+
+    string password;
+    cout << endl;
+    cout << "Employee Number: ";
+    cin >> employeeNumber;
+    cout << "Password: ";
+    cin >> password;
+
+    // If the user is a manager, the password is "admin"
+    if (isManager) {
+        return employeeNumber == "admin" || password == "admin";
+    } else {
+        // If the user is an employee, the password is "123456"
+        if (password != "123456") {
+            return false;
+        }
+        try {
+            db.getEmployee(stoi(employeeNumber));
+        } catch (const std::logic_error& exception) {
+            return false;
+        }
+        return true;
+    }
+}
+
+int loginMenu(Database& db) {
+    bool done = false;
+    while (!done) {
+        cout << endl;
+        cout << "Login Menu" << endl;
+        cout << "-----------------" << endl;
+        cout << "1) Manager Login" << endl;
+        cout << "2) Employee Login" << endl;
+        cout << "0) Quit" << endl;
+        cout << endl;
+        cout << "---> ";
+
+        int selection;
+        cin >> selection;
+
+        switch (selection) {
+            case 0:
+                return 0;
+            case 1:
+                if (login(db, true)) {
+                    return 1;
+                } else {
+                    cerr << "Login failed." << endl;
+                }
+                break;
+            case 2:
+                if (login(db, false)) {
+                    return 2;
+                } else {
+                    cerr << "Login failed." << endl;
+                }
+                break;
+            default:
+                cerr << "Unknown command." << endl;
+                break;
+        }
+    }
+}
+
+int displayEmployeeMenu() {
+    int selection;
+    cout << endl;
+    cout << "Employee Database" << endl;
+    cout << "-----------------" << endl;
+    cout << "1) Display my information" << endl;
+    cout << "0) Quit" << endl;
+    cout << endl;
+    cout << "---> ";
+    cin >> selection;
+
+    return selection;
+}
 
 int displayMenu()
 {
@@ -155,7 +243,6 @@ int displayMenu()
     cin >> selection;
     return selection;
 }
-
 
 void doHire(Database& db)
 {
@@ -235,6 +322,7 @@ void saveDatabase(Database& db) {
     // Save the database to the file
     db.saveDatabase(fileName);
 }
+
 /**
  * @brief load the database from a text file. Ask user for the file name.
  * @param db
@@ -258,6 +346,7 @@ void loadDatabase(Database& db) {
     // Load the database from the file
     db.loadDatabase(fileName);
 }
+
 /**
  * @brief edit an employee. Ask user for the employee number.
  * @param db
@@ -325,6 +414,7 @@ void editEmployee(Database& db) {
         cerr << "Unable to edit employee: " << exception.what() << endl;
     }
 }
+
 /**
  * @brief search an employee. Ask user for the search criteria.
  * @param db
