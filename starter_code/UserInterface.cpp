@@ -1,21 +1,54 @@
 #include <iostream>
 #include <stdexcept>
 #include <exception>
+#include <fstream>
 #include "Database.h"
 
 using namespace std;
 using namespace Records;
 
+// Global employee number, 
+// which provides employees with the ability to query their own information when logging in.
+string employeeNumber;
+
 int displayMenu();
+/**
+ * @brief displayEmployeeMenu
+*/
 void doHire(Database& db);
 void doFire(Database& db);
 void doPromote(Database& db);
 void doDemote(Database& db);
 
+/**
+ * @brief save the database to a text file. Ask user for the file name.
+ * @param db
+*/
+void saveDatabase(Database& db);
+
+/**
+ * @brief edit an employee. Ask user for the employee number.
+ * @param db
+
+*/
+void editEmployee(Database& db);
+
+/**
+ * @brief search an employee. Ask user for the search criteria.
+ * @param db
+*/
+void searchEmployee(Database& db);
+
+/**
+ * @brief save the database to a text file. Ask user for the file name.
+ * @param db
+*/
+void loadDatabase(Database& db);
+
 int main()
 {
 
-	Database employeeDB;
+    Database employeeDB;
     int option;
     do {
         // When running the program, first log in
