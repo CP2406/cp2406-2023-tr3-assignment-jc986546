@@ -292,7 +292,10 @@ void editEmployee(Database& db) {
         cerr << "Unable to edit employee: " << exception.what() << endl;
     }
 }
-
+/**
+ * @brief search an employee. Ask user for the search criteria.
+ * @param db
+*/
 void searchEmployee(Database& db){
 	    cout << "Search by: " << endl;
     cout << "1) First name" << endl;
