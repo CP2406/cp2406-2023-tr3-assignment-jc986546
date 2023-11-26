@@ -119,10 +119,8 @@ int displayMenu()
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
-    
-	cin >> selection;
-    
-	return selection;
+    cin >> selection;
+    return selection;
 }
 
 
@@ -135,9 +133,10 @@ void doHire(Database& db)
     cin >> firstName;
     cout << "Last name? ";
     cin >> lastName;
-    
+    logic_error("Unable to add new employee.");
     db.addEmployee(firstName, lastName);
 }
+
 
 void doFire(Database& db)
 {
@@ -172,6 +171,7 @@ void doPromote(Database& db)
         cerr << "Unable to promote employee: " << exception.what() << endl;
     }
 }
+
 /**
  * @brief save the database to a text file. Ask user for the file name.
  * @param db
